@@ -8,4 +8,8 @@ export interface Order {
   total: number;
   status: OrderStatus;
   createdAt: string;
+  // Optional fulfillment/payment details
+  deliveryOption?: string;
+  deliveryAddress?: string;
+  paymentMethod?: string;
 }

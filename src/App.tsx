@@ -1,6 +1,7 @@
 import { useState, useEffect, type ChangeEvent, type MouseEvent, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { useUiStore } from "../store/uiStore";
 import type { University } from "../types/User";
 import OnboardingRoute from "./pages/Onboarding";
 import HomeRoute from "./pages/Home";
@@ -65,6 +66,8 @@ function Nav() {
   const location = useLocation();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const selectedCampus = useUiStore((state) => state.selectedCampus);
+  const setSelectedCampus = useUiStore((state) => state.setSelectedCampus);
 
   const handleHover = (e: MouseEvent<HTMLButtonElement>, color: string) => {
     e.currentTarget.style.background = color;
@@ -110,6 +113,26 @@ function Nav() {
         </span>
       </button>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <select
+          value={selectedCampus}
+          onChange={(event) => setSelectedCampus(event.target.value as University | "All Ghana")}
+          style={{
+            borderRadius: 12,
+            border: `1px solid ${COLORS.borderDark}`,
+            padding: "10px 14px",
+            background: COLORS.white,
+            color: COLORS.charcoal,
+            cursor: "pointer",
+          }}
+        >
+          <option>All Ghana</option>
+          <option>University of Ghana (UG)</option>
+          <option>KNUST</option>
+          <option>University of Cape Coast (UCC)</option>
+          <option>Ashesi University</option>
+        </select>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         {user ? (
           <>
             <button
@@ -130,6 +153,25 @@ function Nav() {
               }}
             >
               Home
+            </button>
+            <button
+              onClick={() => navigate("/dashboard")}
+              onMouseEnter={(e) => handleHover(e, COLORS.surface)}
+              onMouseLeave={(e) => handleHover(e, "transparent")}
+              style={{
+                padding: "8px 20px",
+                borderRadius: 8,
+                border: `1px solid ${COLORS.borderDark}`,
+                background: "transparent",
+                color: COLORS.charcoal,
+                fontSize: 14,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
+                cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+            >
+              Dashboard
             </button>
             <button
               onClick={() => navigate("/cart")}

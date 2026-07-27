@@ -1,4 +1,5 @@
 import type { Product } from "../types/Product";
+import type { University } from "../types/University";
 
 const mockProducts: Product[] = [
   {
@@ -24,7 +25,7 @@ const mockProducts: Product[] = [
     rating: 4.8,
     reviews: 34,
     seller: "Kwesi Yeboah",
-    university: "UG",
+    university: "University of Ghana (UG)",
     tags: ["tutoring", "code", "academic"],
   },
   {
